@@ -20,9 +20,9 @@ connectDb()
   .then(() => {
     // listen after mongoDb connected
     app.listen(PORT, () => {
-      console.log(`Server started on port : ${PORT}`);
+      console.log(`Server started on port : ${PORT}.`);
     });
   })
-  .catch(err => {
+  .catch((err) => {
     console.log(err);
   });
