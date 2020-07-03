@@ -3,6 +3,8 @@ const connectDb = require("./config/db");
 
 const app = express();
 
+app.use(express.json({ extended: false }));
+
 app.get("/", (req, res, next) => {
   res.send("200K, Server up and running!");
 });
