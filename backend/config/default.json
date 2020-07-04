@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb://localhost:27017/mern"
+  "mongoURI": "mongodb://localhost:27017/mern",
+  "jwtSecret": "i_use_freedom_to_secure"
 }

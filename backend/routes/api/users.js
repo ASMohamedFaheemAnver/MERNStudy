@@ -7,6 +7,10 @@ const User = require("../../models/User");
 const gravatar = require("gravatar");
 const bcryptjs = require("bcryptjs");
 
+const jwt = require("jsonwebtoken");
+
+const config = require("config");
+
 // @route POST api/users
 // @desc Register user
 // @acces public
@@ -55,7 +59,21 @@ router.post(
       await user.save();
 
       // Return jsonwebtoken
-      res.send("User registered.");
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+
+      const token = await jwt.sign(payload, config.get("jwtSecret"), {
+        expiresIn: 360000,
+      });
+
+      // if (err) {
+      //   res.status(500).json({ errors: [{ msg: "Internal server error." }] });
+      //   return console.log(err);
+      // }
+      res.json({ token });
     } catch (err) {
       console.log(err);
       res.status(500).send("Internal server error.");
