@@ -103,4 +103,46 @@ router.get("/me", auth, async (req, res, next) => {
   }
 });
 
+// @route GET api/profile
+// @desc Get all profiles
+// @acces public
+
+router.get("/", async (req, res, next) => {
+  try {
+    const profiles = await Profile.find().populate("user", ["name", "avatar"]);
+    return res.json(profiles);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal server error.");
+  }
+});
+
+// @route GET api/profile/user/:user_id
+// @desc Get profile by user id
+// @acces public
+
+router.get("/user/:user_id", async (req, res, next) => {
+  try {
+    const profile = await Profile.findOne({
+      user: req.params.user_id,
+    }).populate("user", ["name", "avatar"]);
+
+    if (!profile) {
+      return res
+        .status(400)
+        .json({ msg: "There is no profile for this user." });
+    }
+
+    return res.json(profile);
+  } catch (err) {
+    console.log(err);
+    if (err.kind == "ObjectId") {
+      return res
+        .status(400)
+        .json({ msg: "There is no profile for this user." });
+    }
+    res.status(500).send("Internal server error.");
+  }
+});
+
 module.exports = router;
