@@ -169,4 +169,77 @@ router.put("/unlike/:id", auth, async (req, res, next) => {
   }
 });
 
+// @route POST api/posts/commants/:id
+// @desc Commant on a post
+// @acces Private
+router.post(
+  "/commants/:id",
+  [auth, [check("text", "Text is requied.").not().isEmpty()]],
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const user = await User.findById(req.user.id).select("-password");
+
+      const post = await Post.findById(req.params.id);
+
+      if (!post) {
+        return res.status(400).send("No post found.");
+      }
+
+      const newcommant = {
+        text: req.body.text,
+        name: user.name,
+        avatar: user.avatar,
+        user: req.user.id,
+      };
+      post.commants.unshift(newcommant);
+      await post.save();
+
+      return res.json(post.commants);
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Internal server error.");
+    }
+  }
+);
+
+// @route DELETE api/posts/commants/:id/:commant_id
+// @desc Delete commant
+// @acces Private
+
+router.delete("/commants/:id/:commant_id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    // Pull out commant
+    const commant = post.commants.find(
+      (commant) => commant.id === req.params.commant_id
+    );
+
+    // Make sure commant exists
+    if (!commant) {
+      return res.status(404).json({ msg: "Commant does not exist." });
+    }
+
+    // Check user
+    if (commant.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "User not authorized." });
+    }
+
+    post.commants = post.commants.filter((commant) => {
+      commant.id !== req.user.id;
+    });
+
+    await post.save();
+    res.json(post.commants);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal server error.");
+  }
+});
+
 module.exports = router;
