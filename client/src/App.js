@@ -13,8 +13,13 @@ import store from "./store";
 import { loadUser } from "./actions/auth";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
+import setAuthToken from "./util/setAuthToken";
 
 function App() {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
