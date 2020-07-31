@@ -3,6 +3,10 @@ const connectDb = require("./config/db");
 
 const app = express();
 
+app.use((req, res, next) => {
+  setTimeout(() => next(), 1000);
+});
+
 app.use(express.json({ extended: false }));
 
 app.get("/", (req, res, next) => {
