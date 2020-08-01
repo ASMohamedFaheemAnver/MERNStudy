@@ -45,6 +45,8 @@ router.post(
       linkedin,
     } = req.body;
 
+    console.log(req.body);
+
     // Build profile object
     const profileFields = {};
     profileFields.user = req.user.id;
@@ -55,7 +57,7 @@ router.post(
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
     if (github_user_name) profileFields.github_user_name = github_user_name;
-    if (skills)
+    if (skills && !Array.isArray(skills))
       profileFields.skills = skills.split(",").map((skill) => skill.trim());
     profileFields.social = {};
     if (youtube) profileFields.social.youtube = youtube;
