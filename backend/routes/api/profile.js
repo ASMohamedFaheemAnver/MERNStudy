@@ -11,6 +11,7 @@ const config = require("config");
 
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
+const Post = require("../../models/Post");
 
 // @route GET api/profile
 // @desc Create or update profile
@@ -156,7 +157,8 @@ router.get("/user/:user_id", async (req, res, next) => {
 
 router.delete("/", auth, async (req, res, next) => {
   try {
-    // @todo - remove users posts
+    // Remove user posts
+    await Post.deleteMany({ user: req.user.id });
     // Remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
     // Remove user
