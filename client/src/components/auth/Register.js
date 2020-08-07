@@ -23,7 +23,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     if (password !== password2) {
       setAlert("Passwords do not match.", "danger", 2000);
     } else {
-      const newUser = { name, email, password };
+      // const newUser = { name, email, password };
       try {
         // const config = { headers: { "Content-Type": "application/json" } };
         // const body = JSON.stringify(newUser);

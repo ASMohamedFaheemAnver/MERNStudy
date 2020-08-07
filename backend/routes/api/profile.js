@@ -55,7 +55,7 @@ router.post(
     if (company) profileFields.company = company;
     if (website) profileFields.website = website;
     if (location) profileFields.location = location;
-    if (bio) profileFields.bio = bio;
+    /*if (bio)*/ profileFields.bio = bio;
     if (status) profileFields.status = status;
     if (github_user_name) profileFields.github_user_name = github_user_name;
     if (skills && !Array.isArray(skills))
