@@ -3,11 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import { getProfileById } from "../../actions/profile";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import ProfileTop from "./ProfileTop";
 import ProfileAbout from "./ProfileAbout";
 import ProfileExperience from "./ProfileExperience";
 import ProfileEducation from "./ProfileEducation";
+import ProfileGithub from "./ProfileGithub";
 
 const Profile = ({
   getProfileById,
@@ -35,11 +36,11 @@ const Profile = ({
                 <span>Edit Profile</span>
               </Link>
             )}
-          <div class="profile-grid my-1">
+          <div className="profile-grid my-1">
             <ProfileTop profile={profile}></ProfileTop>
             <ProfileAbout profile={profile}></ProfileAbout>
             <div className="profile-exp bg-white p-2">
-              <h2 class="text-primary">Experience</h2>
+              <h2 className="text-primary">Experience</h2>
               {profile.experience.length > 0 ? (
                 <Fragment>
                   {profile.experience.map((exp) => (
@@ -54,7 +55,7 @@ const Profile = ({
               )}
             </div>
             <div className="profile-edu bg-white p-2">
-              <h2 class="text-primary">Education</h2>
+              <h2 className="text-primary">Education</h2>
               {profile.education.length > 0 ? (
                 <Fragment>
                   {profile.education.map((edu) => (
@@ -68,6 +69,11 @@ const Profile = ({
                 <h4>No education credentials.</h4>
               )}
             </div>
+            {profile.github_user_name && (
+              <ProfileGithub
+                userName={profile.github_user_name}
+              ></ProfileGithub>
+            )}
           </div>
         </Fragment>
       )}
