@@ -50,6 +50,7 @@ router.post(
 router.get("/", auth, async (req, res, next) => {
   try {
     const posts = await Post.find().sort({ date: -1 });
+    console.log(posts);
     res.json(posts);
   } catch (err) {
     console.log(err);
@@ -64,6 +65,7 @@ router.get("/", auth, async (req, res, next) => {
 router.get("/:id", auth, async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
+    console.log(post);
     if (!post) {
       return res.status(404).json({ msg: "Post not found." });
     }
