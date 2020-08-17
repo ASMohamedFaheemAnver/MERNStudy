@@ -224,6 +224,14 @@ img {
   margin: 1.5rem 0;
 }
 
+.liked {
+  color: blue;
+}
+
+.not-liked {
+  color: black;
+}
+
 /* Overlay */
 .dark-overlay {
   background-color: rgba(0, 0, 0, 0.7);
