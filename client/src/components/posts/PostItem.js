@@ -19,10 +19,10 @@ const PostItem = ({
   return (
     <div className="post bg-white p-1 my-1">
       <div>
-        <a href="profile.html">
+        <Link to={`/profile/${user}`}>
           <img className="round-img" src={avatar} alt="" />
           <h4>{name}</h4>
-        </a>
+        </Link>
       </div>
       <div>
         <p className="my-1">{text}</p>
@@ -37,7 +37,9 @@ const PostItem = ({
           }`}
         >
           <i className="fas fa-thumbs-up"></i>
-          <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+          <span>
+            {likes && likes.length > 0 && <span>{likes.length}</span>}
+          </span>
         </button>
         <button
           type="button"
@@ -48,7 +50,7 @@ const PostItem = ({
         </button>
         <Link to={`/post/${_id}`} className="btn btn-primary">
           Discussion{" "}
-          {comments.length > 0 && (
+          {comments && comments.length > 0 && (
             <span className="comment-count">{comments.length}</span>
           )}
         </Link>
