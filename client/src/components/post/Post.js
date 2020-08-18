@@ -6,6 +6,7 @@ import { getPost } from "../../actions/post";
 import PostItem from "../posts/PostItem";
 import { Link } from "react-router-dom";
 import CommentForm from "./CommentForm";
+import CommentItem from "./CommentItem";
 
 const Post = ({ getPost, post: { post, loading }, match }) => {
   useEffect(() => {
@@ -21,6 +22,15 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
       </Link>
       <PostItem showActions={false} post={post}></PostItem>
       <CommentForm postId={post._id}></CommentForm>
+      <div className="comments">
+        {post.commants.map((comment) => (
+          <CommentItem
+            key={comment._id}
+            comment={comment}
+            postId={post._id}
+          ></CommentItem>
+        ))}
+      </div>
     </Fragment>
   );
 };

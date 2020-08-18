@@ -137,7 +137,9 @@ export const addComment = (postId, formData) => async (dispatch) => {
 
 export const deleteComment = (postId, commentId) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/posts/comments${postId}`, commentId);
+    const res = await axios.delete(
+      `/api/posts/commants/${postId}/${commentId}`
+    );
 
     dispatch({ type: REMOVE_COMMENT, payload: commentId });
     dispatch(setAlert("Comment removed.", "success"));

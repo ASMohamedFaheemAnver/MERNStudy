@@ -10,12 +10,14 @@ const PostItem = ({
   addLike,
   removeLike,
   deletePost,
-  post: { _id, text, name, avatar, user, likes, comments, date },
+  post: { _id, text, name, avatar, user, likes, commants, date },
   showActions,
 }) => {
   const isOwnerLiked = likes.filter((like) => {
     return user === like.user;
   });
+
+  console.log(commants);
 
   return (
     <div className="post bg-white p-1 my-1">
@@ -53,8 +55,8 @@ const PostItem = ({
             </button>
             <Link to={`/post/${_id}`} className="btn btn-primary">
               Discussion{" "}
-              {comments && comments.length > 0 && (
-                <span className="comment-count">{comments.length}</span>
+              {commants && commants.length > 0 && (
+                <span className="comment-count">{commants.length}</span>
               )}
             </Link>
             {!auth.loading && user === auth.user._id && (

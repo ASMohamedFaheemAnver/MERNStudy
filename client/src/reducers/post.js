@@ -68,7 +68,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: false,
-        post: { ...state.post, comments: payload },
+        post: { ...state.post, commants: payload },
       };
 
     case REMOVE_COMMENT:
@@ -77,7 +77,7 @@ export default function (state = initialState, action) {
         loading: false,
         post: {
           ...state.post,
-          comments: state.post.comments.filter((comment) => {
+          commants: state.post.commants.filter((comment) => {
             return comment._id !== payload;
           }),
         },

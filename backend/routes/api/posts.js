@@ -230,7 +230,7 @@ router.delete("/commants/:id/:commant_id", auth, async (req, res) => {
     }
 
     post.commants = post.commants.filter((commant) => {
-      commant.id !== req.user.id;
+      return commant.id.toString() !== req.params.commant_id.toString();
     });
 
     await post.save();
